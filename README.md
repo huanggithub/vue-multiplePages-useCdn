@@ -2,15 +2,15 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [高性能灵活的多页面Vue脚手架](#%E9%AB%98%E6%80%A7%E8%83%BD%E7%81%B5%E6%B4%BB%E7%9A%84%E5%A4%9A%E9%A1%B5%E9%9D%A2vue%E8%84%9A%E6%89%8B%E6%9E%B6)
-  - [特点/优点](#%E7%89%B9%E7%82%B9%E4%BC%98%E7%82%B9)
-  - [使用](#%E4%BD%BF%E7%94%A8)
-  - [解析](#%E8%A7%A3%E6%9E%90)
+- [高性能灵活的多页面Vue脚手架](#高性能灵活的多页面vue脚手架)
+  - [特点/优点](#特点优点)
+  - [使用](#使用)
+  - [解析](#解析)
     - [config/app.config.js](#configappconfigjs)
     - [config/cdnConf](#configcdnconf)
     - [src/](#src)
     - [mock](#mock)
-  - [备注](#%E5%A4%87%E6%B3%A8)
+  - [备注](#备注)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -46,6 +46,9 @@ const currentProject = 'test'
    * 阿里云OSS或七牛云的具体配置在下面的config中配置
    * **/
 const use = 'ali' // ali 或 qiniu
+
+// 是否需要上传至cdn
+const isUpload = false
 
 const config = {
   currentProject: `project/${realProject}`,

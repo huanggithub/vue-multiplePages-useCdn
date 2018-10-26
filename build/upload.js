@@ -4,6 +4,11 @@ const path = require('path')
 const customConf = require('../config/app.config')
 const OSS = require('ali-oss')
 
+if (!customConf.isUpload) {
+  console.log('您不需要上传至cdn，打包完成')
+  return
+}
+
 // 阿里OSS上传
 const client = new OSS(customConf.aLiOss)
 

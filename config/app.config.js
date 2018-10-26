@@ -5,6 +5,7 @@ const selfCdn = require('./cdnConf/index')
 
 const currentProject = 'test'
 const use = 'ali' // ali 或 qiniu
+const isUpload = false // 是否需要上传至cdn
 
 /* 获取所有模块的文件夹名*/
 const modules = fs.readdirSync(path.join(__dirname, '..', 'src/project'))
@@ -39,6 +40,7 @@ console.log(`您正在操作 ${realProject} 页面`)
 const config = {
   currentProject: `project/${realProject}`,
   use,
+  isUpload,
   qiNiuCdn: {
     host: '',
     bucket: '',
