@@ -42,13 +42,19 @@ const pages = ((globalPath) => {
     htmlFiles[pageName]['path'] = pagePath
   })
   return htmlFiles
-})(utils.resolve('src') + `/${customConf.currentProject}/**/*.html`)
+})(utils.resolve('src') + `/${customConf.currentProject}/*`)
 
+const html = utils.resolve('build') + '/index.html'
+for (var k in pages) {
+  pages[k]['path'] = html
+}
+
+const projectName = customConf.currentProject.replace('project/', '')
 for (const entryName in pages) {
   const conf = {
     // 生成出来的html文件名
-    filename: entryName + '.html',
-    cdnLink: customConf.cdnLink,
+    filename: projectName + '.' + entryName + '.html',
+    selfConf: customConf.selfConf,
     // 每个html的模版，这里多个页面使用同一个模版
     template: pages[entryName]['path'],
     // 自动将引用插入html

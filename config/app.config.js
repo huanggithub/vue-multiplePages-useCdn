@@ -1,11 +1,11 @@
 const path = require('path')
 const fs = require('fs')
-const selfCdn = require('./cdnConf/index')
+const selfConf = require('./cdnConf/index')
 // 设置默认活动页的路径，优先级：命令中参数 > currentProject配置 ，如果都不存在，则打包project中第一个活动
 
 const currentProject = 'test'
 const use = 'ali' // ali 或 qiniu
-const isUpload = false // 是否需要上传至cdn
+const isUpload = true // 是否需要上传至cdn
 
 /* 获取所有模块的文件夹名*/
 const modules = fs.readdirSync(path.join(__dirname, '..', 'src/project'))
@@ -22,18 +22,20 @@ if (modules.indexOf(argvPath) !== -1) {
 }
 
 // 未设置则置空
-if (typeof selfCdn[realProject] !== 'object' || Object.keys(selfCdn[realProject]).length === 0) {
-  selfCdn[realProject] = {
-    js: {}, css: {}
-  }
+const defaultConf = { title: '请配置title', css: {}, js: [] }
+if (typeof selfConf[realProject] === 'object') {
+  selfConf[realProject] = Object.assign(defaultConf, selfConf[realProject])
+} else {
+  selfConf[realProject] = defaultConf
 }
 
 // 生成externals配置
 const externalsConf = {}
-const tempjs = selfCdn[realProject].js
-for (const key in tempjs) {
-  externalsConf[tempjs[key].packageName] = key
-}
+const tempjs = selfConf[realProject].js
+
+tempjs.forEach(item => {
+  externalsConf[item.packageName] = item.variableName
+})
 
 console.log(`您正在操作 ${realProject} 页面`)
 
@@ -50,17 +52,16 @@ const config = {
     prefix: ''
   },
   aLiOss: {
-    host: '',
-    accessKeyId: '',
-    accessKeySecret: '',
-    bucket: '',
-    region: '',
-    prefix: ''
+    accessKeyId: 'LTAIop8DUZrSMEMn',
+    accessKeySecret: 'Yi8BUqh44mEsqZNGi9x77942FLNOUM',
+    bucket: 'hpvip',
+    region: 'oss-cn-hangzhou',
+    prefix: '/cdn/test/'
   },
-  cdnLink: selfCdn[realProject],
+  selfConf: selfConf[realProject],
   externalsConf: externalsConf
 }
-
+config.aLiOss.host = `https://${config.aLiOss.bucket}.${config.aLiOss.region}.aliyuncs.com`.replace(/\/+/, '/')
 config.uploadPath = use === 'ali' ? config.aLiOss : config.qiNiuCdn
 // console.log(config)
 module.exports = config

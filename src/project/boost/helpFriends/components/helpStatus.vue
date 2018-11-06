@@ -12,12 +12,12 @@
   </div>
   <div v-if="status==='hasHelpHe'">
 			<p class="m-t">
-        <a href="inviteFriends.html" class="no-style-a" style="text-decoration: none;">
+        <a href="boost.inviteFriends.html" class="no-style-a" style="text-decoration: none;">
 				  <customBtn :opts="btn[status].meTo"></customBtn>
         </a>
 			</p>
 			<p class="m-t" >
-        <a href="index.html" class="no-style-a" style="text-decoration: none;">
+        <a href="boost.index.html" class="no-style-a" style="text-decoration: none;">
 				  <customBtn :opts="btn[status].seeOther" ></customBtn>
         </a>
 			</p>
